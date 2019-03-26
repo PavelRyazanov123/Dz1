@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 
 public class MyRvAdapter extends RecyclerView.Adapter<MyRvAdapter.MyViewHolder> {
@@ -14,9 +15,9 @@ public class MyRvAdapter extends RecyclerView.Adapter<MyRvAdapter.MyViewHolder> 
     private ArrayList<String> rvItemsList;
     private Context mContext;
 
-    public MyRvAdapter(ArrayList<String> rvItemsList,Context mContext){
-        this.rvItemsList=rvItemsList;
-        this.mContext =mContext;
+    public MyRvAdapter(ArrayList<String> rvItemsList, Context mContext) {
+        this.rvItemsList = rvItemsList;
+        this.mContext = mContext;
     }
 
     @NonNull
@@ -34,17 +35,18 @@ public class MyRvAdapter extends RecyclerView.Adapter<MyRvAdapter.MyViewHolder> 
         myViewHolder.tvNumbers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int color=myViewHolder.tvNumbers.getCurrentTextColor();
+                int color = myViewHolder.tvNumbers.getCurrentTextColor();
                 String number = (String) myViewHolder.tvNumbers.getText();
-                OnClickItemRecycler clickItemRecyclerListener=(OnClickItemRecycler)mContext;
-                clickItemRecyclerListener.goFromFragment1ToFragment2(color,number);
+                OnClickItemRecycler clickItemRecyclerListener = (OnClickItemRecycler) mContext;
+                clickItemRecyclerListener.goFromFragment1ToFragment2(color, number);
             }
         });
     }
-    private int changeColor(String item){
-        int color =mContext.getColor(R.color.blue) ;
-        if(Integer.valueOf(item)%2==0)
-            color=mContext.getColor(R.color.red);
+
+    private int changeColor(String item) {
+        int color = mContext.getColor(R.color.blue);
+        if (Integer.valueOf(item) % 2 == 0)
+            color = mContext.getColor(R.color.red);
         return color;
     }
 
@@ -53,17 +55,22 @@ public class MyRvAdapter extends RecyclerView.Adapter<MyRvAdapter.MyViewHolder> 
         return rvItemsList.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvNumbers;
 
-        public MyViewHolder (View view){
+        public MyViewHolder(View view) {
             super(view);
-            tvNumbers=view.findViewById(R.id.textview_rv);
+            tvNumbers = view.findViewById(R.id.textview_rv);
         }
     }
 
-    public interface OnClickItemRecycler{
+    public interface OnClickItemRecycler {
         void goFromFragment1ToFragment2(int color, String number);
+    }
+
+    public void AddItem(int size) {
+        rvItemsList.add(String.valueOf(size));
+        notifyItemInserted(size);
     }
 }

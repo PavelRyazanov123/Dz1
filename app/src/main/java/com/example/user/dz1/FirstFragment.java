@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
 import java.util.ArrayList;
 
 public class FirstFragment extends Fragment {
@@ -18,7 +19,7 @@ public class FirstFragment extends Fragment {
     private ArrayList<String> rvItemList = new ArrayList<>();
     private RecyclerView recyclerView;
     private MyRvAdapter myRvAdapter;
-    private final String LIST_KEY ="RECYCLER_ITEM_LIST";
+    private final String LIST_KEY = "RECYCLER_ITEM_LIST";
 
     @Nullable
     @Override
@@ -26,7 +27,7 @@ public class FirstFragment extends Fragment {
         View view = inflater.inflate(R.layout.first_fragment_layout, container, false);
         Button addItemButton = view.findViewById(R.id.button_add_item);
         recyclerView = view.findViewById(R.id.rv);
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT ) {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         } else {
             recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
@@ -36,10 +37,9 @@ public class FirstFragment extends Fragment {
         addItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int newSize=rvItemList.size()+1;
-                rvItemList.add(String.valueOf(newSize));
+                int newSize = rvItemList.size() + 1;
+                myRvAdapter.AddItem(newSize);
                 recyclerView.smoothScrollToPosition(newSize);
-                myRvAdapter.notifyItemInserted(newSize);
             }
         });
         return view;
@@ -48,7 +48,7 @@ public class FirstFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putStringArrayList(LIST_KEY,rvItemList);
+        outState.putStringArrayList(LIST_KEY, rvItemList);
     }
 
     @Override
@@ -61,9 +61,9 @@ public class FirstFragment extends Fragment {
         }
     }
 
-    private void initData(ArrayList<String> rvItemList){
-        for(int i=1;i<101;i++){
-            rvItemList.add(i+"");
+    private void initData(ArrayList<String> rvItemList) {
+        for (int i = 1; i < 101; i++) {
+            rvItemList.add(i + "");
         }
     }
 }
