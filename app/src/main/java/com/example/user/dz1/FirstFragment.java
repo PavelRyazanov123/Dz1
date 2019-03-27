@@ -16,9 +16,9 @@ import java.util.ArrayList;
 
 public class FirstFragment extends Fragment {
 
-    private ArrayList<String> rvItemList = new ArrayList<>();
-    private RecyclerView recyclerView;
-    private MyRvAdapter myRvAdapter;
+    private ArrayList<String> mRvItemList = new ArrayList<>();
+    private RecyclerView mRecyclerView;
+    private MyRvAdapter mRvAdapter;
     private final String LIST_KEY = "RECYCLER_ITEM_LIST";
 
     @Nullable
@@ -26,20 +26,20 @@ public class FirstFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.first_fragment_layout, container, false);
         Button addItemButton = view.findViewById(R.id.button_add_item);
-        recyclerView = view.findViewById(R.id.rv);
+        mRecyclerView = view.findViewById(R.id.rv);
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+            mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         } else {
-            recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
+            mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
         }
-        myRvAdapter = new MyRvAdapter(rvItemList, getActivity());
-        recyclerView.setAdapter(myRvAdapter);
+        mRvAdapter = new MyRvAdapter(mRvItemList, getActivity());
+        mRecyclerView.setAdapter(mRvAdapter);
         addItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int newSize = rvItemList.size() + 1;
-                myRvAdapter.AddItem(newSize);
-                recyclerView.smoothScrollToPosition(newSize);
+                int newSize = mRvItemList.size() + 1;
+                mRvAdapter.AddItem(newSize);
+                mRecyclerView.smoothScrollToPosition(newSize);
             }
         });
         return view;
@@ -48,16 +48,16 @@ public class FirstFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putStringArrayList(LIST_KEY, rvItemList);
+        outState.putStringArrayList(LIST_KEY, mRvItemList);
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
-            initData(rvItemList);
+            initData(mRvItemList);
         } else {
-            rvItemList = savedInstanceState.getStringArrayList(LIST_KEY);
+            mRvItemList = savedInstanceState.getStringArrayList(LIST_KEY);
         }
     }
 

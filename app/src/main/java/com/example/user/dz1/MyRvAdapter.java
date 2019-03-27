@@ -12,12 +12,12 @@ import java.util.ArrayList;
 
 public class MyRvAdapter extends RecyclerView.Adapter<MyRvAdapter.MyViewHolder> {
 
-    private ArrayList<String> rvItemsList;
+    private ArrayList<String> mRvItemsList;
     private Context mContext;
 
-    public MyRvAdapter(ArrayList<String> rvItemsList, Context mContext) {
-        this.rvItemsList = rvItemsList;
-        this.mContext = mContext;
+    public MyRvAdapter(ArrayList<String> rvItemsList, Context context) {
+        this.mRvItemsList = rvItemsList;
+        this.mContext = context;
     }
 
     @NonNull
@@ -30,8 +30,8 @@ public class MyRvAdapter extends RecyclerView.Adapter<MyRvAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int i) {
-        myViewHolder.tvNumbers.setText(rvItemsList.get(i));
-        myViewHolder.tvNumbers.setTextColor((changeColor(rvItemsList.get(i))));
+        myViewHolder.tvNumbers.setText(mRvItemsList.get(i));
+        myViewHolder.tvNumbers.setTextColor((changeColor(mRvItemsList.get(i))));
         myViewHolder.tvNumbers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,7 +52,7 @@ public class MyRvAdapter extends RecyclerView.Adapter<MyRvAdapter.MyViewHolder> 
 
     @Override
     public int getItemCount() {
-        return rvItemsList.size();
+        return mRvItemsList.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -70,7 +70,7 @@ public class MyRvAdapter extends RecyclerView.Adapter<MyRvAdapter.MyViewHolder> 
     }
 
     public void AddItem(int size) {
-        rvItemsList.add(String.valueOf(size));
+        mRvItemsList.add(String.valueOf(size));
         notifyItemInserted(size);
     }
 }
